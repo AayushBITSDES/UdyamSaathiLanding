@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Udyam Saathi - AI-powered scheme discovery for MSMEs</title>
+    <meta name="description" content="A voice-first agent that helps India's informal businesses discover and apply to government schemes in their preferred language.">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/YOUR_ADOBE_TYPEKIT_ID.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #0F4C5C;
+            --secondary: #7A9B76;
+            --accent: #D4A574;
+            --neutral: #2D3748;
+            --background: #FEFCF7;
+        }
+        
+        body {
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--neutral);
+            line-height: 1.6;
+        }
+        
+        .font-heading {
+            font-family: 'sofia-pro', 'General Sans', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(15, 76, 92, 0.05) 0%, rgba(122, 155, 118, 0.05) 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0D3D4A;
+            transform: translateY(-1px);
+        }
+        
+
+        
+        .barrier-card {
+            background: white;
+            border: 1px solid rgba(15, 76, 92, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .barrier-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, var(--secondary) 0%, #8BAA87 100%);
+            color: white;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .dev-card {
+            transition: all 0.3s ease;
+        }
+
+        .dev-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="font-heading text-xl text-primary" style="color: var(--primary);">
+                    Udyam Saathi
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link active text-gray-900 hover:text-primary">Home</a>
+                    <a href="about.html" class="nav-link text-gray-600 hover:text-primary">About</a>
+                    <a href="development.html" class="nav-link text-gray-600 hover:text-primary">Development</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-4 py-2 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-900 font-medium">Home</a>
+                <a href="about.html" class="block px-3 py-2 text-gray-600">About</a>
+                <a href="development.html" class="block px-3 py-2 text-gray-600">Development</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-16 min-h-screen flex items-center hero-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-6">
+                        <h1 class="hero-title font-heading text-5xl lg:text-7xl text-primary leading-tight" style="color: var(--primary);">
+                            <span id="typed-title" data-text="Udyam Saathi"></span>
+                        </h1>
+                        <h2 class="text-2xl lg:text-3xl text-secondary hero-fade-in font-medium" style="color: var(--secondary); opacity: 0;">
+                            AI-powered scheme discovery for MSMEs
+                        </h2>
+                        <p class="text-xl text-gray-600 hero-fade-in leading-relaxed" style="opacity: 0;">
+                            A voice-first assistant that helps India's informal businesses discover and understand government schemes in their preferred language.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4 hero-fade-in" style="opacity: 0;">
+                        <a href="about.html" class="btn-primary px-10 py-4 rounded-xl font-medium text-lg text-center inline-block shadow-lg shadow-primary/20 hover:shadow-primary/40">
+                            About Us
+                        </a>
+                        <a href="#reach-out" class="px-10 py-4 rounded-xl font-medium text-lg text-center border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+                <!-- Empty column to maintain layout -->
+                <div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl lg:text-5xl text-primary mb-6" style="color: var(--primary);">
+                    The Scheme Access Gap
+                </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto">
+                    India has <strong>7.34 crore MSMEs</strong> and <strong>22+ major government schemes</strong> worth <strong>₹30 lakh crore</strong>, yet most micro-enterprises never access them.
+                </p>
+            </div>
+            
+            <!-- Gap Visualization Chart -->
+            <div class="chart-container p-8 mb-16">
+                <h3 class="font-heading text-2xl text-center mb-8 text-primary" style="color: var(--primary);">
+                    The Accessibility Challenge
+                </h3>
+                <div id="gap-chart" style="height: 400px;"></div>
+            </div>
+            
+            <!-- Four Barriers -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="barrier-card p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4" style="background-color: var(--primary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-3 text-primary" style="color: var(--primary);">Information Asymmetry</h3>
+                    <p class="text-gray-600 text-sm">Schemes are hard to discover without knowing specific names or navigating complex portals.</p>
+                </div>
+                
+                <div class="barrier-card p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4" style="background-color: var(--secondary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-3 text-primary" style="color: var(--primary);">Language Barriers</h3>
+                    <p class="text-gray-600 text-sm">Government portals primarily in English, excluding millions of regional language speakers.</p>
+                </div>
+                
+                <div class="barrier-card p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4" style="background-color: var(--accent);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-3 text-primary" style="color: var(--primary);">Process Complexity</h3>
+                    <p class="text-gray-600 text-sm">Multiple portals with varying requirements and confusing application processes.</p>
+                </div>
+                
+                <div class="barrier-card p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4" style="background-color: var(--primary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-3 text-primary" style="color: var(--primary);">Fragmented Ecosystem</h3>
+                    <p class="text-gray-600 text-sm">No unified discovery system across different government departments and levels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Prototype Section -->
+    <section class="py-20 hero-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl lg:text-5xl text-primary mb-6" style="color: var(--primary);">
+                    Current Prototype
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Here's what currently works in our early-stage development
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl card-hover text-center">
+                    <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl mb-4 text-primary" style="color: var(--primary);">
+                        RAG-based Scheme Matching
+                    </h3>
+                    <p class="text-gray-600">
+                        Retrieval-Augmented Generation system that matches user queries with relevant government schemes based on semantic understanding.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl card-hover text-center">
+                    <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl mb-4 text-primary" style="color: var(--primary);">
+                        Basic Voice Interface
+                    </h3>
+                    <p class="text-gray-600">
+                        Speech-to-text and text-to-speech capabilities allowing users to interact with the system using natural voice commands.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl card-hover text-center">
+                    <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl mb-4 text-primary" style="color: var(--primary);">
+                        Multi-turn Conversation
+                    </h3>
+                    <p class="text-gray-600">
+                        Context-aware dialogue management that maintains conversation history and guides users through scheme discovery process.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="reach-out" class="py-16 bg-white border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-heading text-3xl lg:text-4xl text-primary mb-4" style="color: var(--primary);">
+                Get in Touch
+            </h2>
+            <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+                Interested in Udyam Saathi? Have questions or feedback? Reach out to us directly.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-8">
+                <!-- Aayush -->
+                <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group cursor-text">
+                    <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center" style="background-color: var(--primary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-heading text-lg text-primary" style="color: var(--primary);">Aayush Khare</div>
+                        <div class="text-gray-600 select-all">aayush.khare2024@bitsdesign.edu.in</div>
+                    </div>
+                </div>
+                
+                <!-- Koutilya -->
+                <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group cursor-text">
+                    <div class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center" style="background-color: var(--secondary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-heading text-lg text-primary" style="color: var(--primary);">Koutilya Karamala</div>
+                        <div class="text-gray-600 select-all">koutilya.karamala2024@bitsdesign.edu.in</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12" style="background-color: var(--primary);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="font-heading text-2xl mb-4">Udyam Saathi</div>
+                <p class="text-blue-200">© 2026 Udyam Saathi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

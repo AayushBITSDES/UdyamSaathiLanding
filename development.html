@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development - Udyam Saathi</title>
+    <meta name="description" content="Technical deep-dive into Udyam Saathi's engineering stack, architecture, and open development philosophy.">
+    
+    <link rel="stylesheet" href="https://use.typekit.net/YOUR_ADOBE_TYPEKIT_ID.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #0F4C5C;
+            --secondary: #7A9B76;
+            --accent: #D4A574;
+            --neutral: #2D3748;
+            --background: #FEFCF7;
+        }
+        
+        body {
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--neutral);
+            line-height: 1.6;
+        }
+        
+        .font-heading {
+            font-family: 'sofia-pro', 'General Sans', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(15, 76, 92, 0.05) 0%, rgba(122, 155, 118, 0.05) 100%);
+        }
+        
+        .tech-card {
+            background: white;
+            border: 1px solid rgba(15, 76, 92, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0D3D4A;
+            transform: translateY(-1px);
+        }
+        
+        .font-mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+    </style>
+</head>
+<body>
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="font-heading text-xl text-primary" style="color: var(--primary);">
+                    Udyam Saathi
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-gray-600 hover:text-primary">Home</a>
+                    <a href="about.html" class="nav-link text-gray-600 hover:text-primary">About</a>
+                    <a href="development.html" class="nav-link active text-gray-900 hover:text-primary">Development</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-4 py-2 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-600">Home</a>
+                <a href="about.html" class="block px-3 py-2 text-gray-600">About</a>
+                <a href="development.html" class="block px-3 py-2 text-gray-900 font-medium">Development</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 hero-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl">
+                <h1 class="font-heading text-5xl lg:text-6xl text-primary mb-6 leading-tight" style="color: var(--primary);">
+                    <span id="typed-title" data-text="Building Digital Public Infrastructure for Scheme Discovery"></span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-10 max-w-2xl hero-fade-in" style="opacity: 0;">
+                    Technical deep-dive into how Udyam Saathi bridges the information gap using AI, voice interfaces, and open standards.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 hero-fade-in" style="opacity: 0;">
+                    <a href="https://github.com/YOUR_REPO" target="_blank" rel="noopener noreferrer" class="btn-primary px-6 py-3 rounded-lg font-medium inline-flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        View Source on GitHub
+                    </a>
+                    <a href="https://notion.so/YOUR_PAGE" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-lg font-medium border-2 border-gray-300 text-gray-700 hover:border-primary hover:text-primary transition-all duration-300 inline-flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 2.02c-.42-.326-.98-.7-2.055-.607L3.01 2.72c-.466.046-.56.28-.374.466l1.823 1.022zm.793 3.358v13.682c0 .746.373 1.026 1.213.98l14.523-.84c.84-.046.933-.56.933-1.166V6.612c0-.606-.233-.933-.746-.886l-15.177.886c-.56.047-.746.327-.746.954zm14.337.7c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.746 0-.933-.234-1.492-.934l-4.57-7.186v6.952l1.446.327s0 .84-1.166.84l-3.218.187c-.093-.187 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.451-.234 4.758 7.28v-6.44l-1.213-.14c-.093-.514.28-.887.746-.933l3.218-.187zM2.217 1.6L16.152.32c1.725-.14 2.17.093 2.893.654l3.984 2.847c.513.374.7.467.7 1.12v16.38c0 1.026-.373 1.632-1.679 1.725l-15.503.933c-.98.047-1.446-.093-1.959-.747L1.517 19.9c-.56-.747-.793-1.306-.793-1.959V3.233c0-.84.373-1.539 1.493-1.632z"/>
+                        </svg>
+                        Read Architecture Docs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 mb-20">
+                <div>
+                    <h2 class="font-heading text-3xl text-primary mb-6" style="color: var(--primary);">The Challenge</h2>
+                    <p class="text-lg text-gray-600">
+                        Querying 30TB+ of unstructured government PDF data with high latency and low accuracy using traditional keyword search results in a fragmented user experience. Micro-enterprises need answers, not document links.
+                    </p>
+                </div>
+                <div>
+                    <h2 class="font-heading text-3xl text-primary mb-6" style="color: var(--primary);">The Solution</h2>
+                    <p class="text-lg text-gray-600">
+                        A verticalized RAG (Retrieval-Augmented Generation) pipeline optimized for Indian vernacular languages, delivering semantic understanding and voice-first interactions on low-bandwidth networks.
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="font-heading text-3xl text-primary mb-8" style="color: var(--primary);">Core Stack</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="tech-card p-6 rounded-xl h-full">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 text-blue-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-2 text-primary">TypeScript + Tailwind</h3>
+                    <div class="text-sm font-medium text-gray-500 mb-3">FRONTEND</div>
+                    <p class="text-gray-600 text-sm">
+                        Type safety for complex state management (voice sessions) and utility-first styling for rapid iteration and performance.
+                    </p>
+                </div>
+
+                <div class="tech-card p-6 rounded-xl h-full">
+                    <div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mb-4 text-cyan-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-2 text-primary">Go (Golang)</h3>
+                    <div class="text-sm font-medium text-gray-500 mb-3">BACKEND</div>
+                    <p class="text-gray-600 text-sm">
+                        High-concurrency handling for real-time voice streams and low-latency API responses. Built for scale.
+                    </p>
+                </div>
+
+                <div class="tech-card p-6 rounded-xl h-full">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 text-purple-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-2 text-primary">RAG Pipeline</h3>
+                    <div class="text-sm font-medium text-gray-500 mb-3">INTELLIGENCE</div>
+                    <p class="text-gray-600 text-sm">
+                        Context-aware retrieval that grounds LLM responses in official government notification data, significantly reducing hallucinations.
+                    </p>
+                </div>
+
+                <div class="tech-card p-6 rounded-xl h-full">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4 text-orange-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-lg mb-2 text-primary">Cloud Native</h3>
+                    <div class="text-sm font-medium text-gray-500 mb-3">INFRASTRUCTURE</div>
+                    <p class="text-gray-600 text-sm">
+                        Containerized microservices architecture ensuring modularity and scalable deployment across diverse environments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 hero-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="font-heading text-3xl text-primary mb-6" style="color: var(--primary);">Why Open Source?</h2>
+                    <div class="space-y-6 text-gray-600">
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-gray-200 flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.2-2.85.577-4.147l.104-.194c.48-1.006.881-2.592 1.222-3.205m7.539.218c.46-.334.776-.848.825-1.432"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-lg text-primary mb-1">DPI Transparency</h3>
+                                <p>We believe Digital Public Infrastructure should be transparent and auditable. Trust is built through code visibility.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-gray-200 flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-lg text-primary mb-1">Privacy by Design</h3>
+                                <p>Voice data is processed ephemerally. We architect systems where user data privacy is a default, not a setting.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-gray-200 flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-lg text-primary mb-1">Community Driven</h3>
+                                <p>Building for India requires diverse inputs. Open source allows the community to contribute localization fixes and domain knowledge.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Why Build in Public -->
+                <div>
+                    <h2 class="font-heading text-3xl text-primary mb-6" style="color: var(--primary);">Why Build in Public?</h2>
+                    <div class="space-y-6 text-gray-600">
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-gray-200 flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-lg text-primary mb-1">Accountability</h3>
+                                <p>Every commit, architectural decision, and roadmap item is visible. We answer to the community.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-gray-200 flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-lg text-primary mb-1">Faster Feedback Loops</h3>
+                                <p>By sharing early prototypes, we get critical feedback from users and developers before investing months in the wrong direction.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary border border-gray-200 flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-heading text-lg text-primary mb-1">Collaborative Innovation</h3>
+                                <p>The challenges of India's linguistic diversity are too big for one team. We invite contributions to solve them together.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-heading text-3xl text-primary mb-6" style="color: var(--primary);">
+                Interested in Learning More?
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Get in touch to discuss the project, provide feedback, or explore collaboration opportunities.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-8">
+                <!-- Aayush -->
+                <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group cursor-text">
+                    <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center" style="background-color: var(--primary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-heading text-lg text-primary" style="color: var(--primary);">Aayush Khare</div>
+                        <div class="text-gray-600 select-all">aayush.khare2024@bitsdesign.edu.in</div>
+                    </div>
+                </div>
+                
+                <!-- Koutilya -->
+                <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group cursor-text">
+                    <div class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center" style="background-color: var(--secondary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-heading text-lg text-primary" style="color: var(--primary);">Koutilya Karamala</div>
+                        <div class="text-gray-600 select-all">koutilya.karamala2024@bitsdesign.edu.in</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-primary text-white py-12" style="background-color: var(--primary);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="font-heading text-2xl mb-4">Udyam Saathi</div>
+                <p class="text-blue-200">© 2026 Udyam Saathi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Udyam Saathi</title>
+    <meta name="description" content="Learn about the Udyam Saathi project - building voice-based scheme discovery infrastructure for India's micro-enterprises.">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/YOUR_ADOBE_TYPEKIT_ID.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #0F4C5C;
+            --secondary: #7A9B76;
+            --accent: #D4A574;
+            --neutral: #2D3748;
+            --background: #FEFCF7;
+        }
+        
+        body {
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--neutral);
+            line-height: 1.6;
+        }
+        
+        .font-heading {
+            font-family: 'sofia-pro', 'General Sans', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(15, 76, 92, 0.05) 0%, rgba(122, 155, 118, 0.05) 100%);
+        }
+        
+        .team-card {
+            background: white;
+            border: 1px solid rgba(15, 76, 92, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .institution-badge {
+            background: linear-gradient(135deg, var(--secondary) 0%, #8BAA87 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="font-heading text-xl text-primary" style="color: var(--primary);">
+                    Udyam Saathi
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-gray-600 hover:text-primary">Home</a>
+                    <a href="about.html" class="nav-link active text-gray-900 hover:text-primary">About</a>
+                    <a href="development.html" class="nav-link text-gray-600 hover:text-primary">Development</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-4 py-2 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-600">Home</a>
+                <a href="about.html" class="block px-3 py-2 text-gray-900 font-medium">About</a>
+                <a href="development.html" class="block px-3 py-2 text-gray-600">Development</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-40 pb-20 hero-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl">
+                <h1 class="font-heading text-5xl lg:text-6xl text-primary mb-6" style="color: var(--primary);">
+                    <span id="typed-title" data-text="About Udyam Saathi"></span>
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl hero-fade-in" style="opacity: 0;">
+                    Building voice-based scheme discovery infrastructure for India's micro-enterprises
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Description -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="prose prose-lg max-w-4xl">
+                <h2 class="font-heading text-3xl text-primary mb-8" style="color: var(--primary);">
+                    Project Overview
+                </h2>
+                <div class="text-lg text-gray-700 space-y-6">
+                    <p>
+                        Udyam Saathi is an early-stage project focused on building voice-based scheme discovery infrastructure for Micro, Small, and Medium Enterprises (MSMEs) in India. Our mission is to bridge the gap between government schemes and the businesses that need them most.
+                    </p>
+                    
+                    <p>
+                        We are developing an AI-powered voice-first assistant that helps India's informal businesses discover and understand government schemes in their preferred language. By leveraging Retrieval-Augmented Generation (RAG) technology and natural language processing, we aim to make scheme discovery as simple as having a conversation.
+                    </p>
+                    
+                    <p>
+                        This project recognizes that traditional text-based portals often exclude millions of micro-enterprise owners who may not be comfortable with written English or digital interfaces. Our voice-first approach ensures that language and literacy barriers don't prevent access to valuable government support programs.
+                    </p>
+                    
+                    <p>
+                        Currently in prototype phase, we're focused on building core capabilities including scheme matching algorithms, multilingual voice interfaces, and conversation management systems that can guide users through the complex landscape of government schemes.
+                    </p>
+                </div>
+                
+                <div class="mt-12 p-8 bg-gray-50 rounded-2xl">
+                    <h3 class="font-heading text-xl text-primary mb-4" style="color: var(--primary);">Institutional Support</h3>
+                    <div class="space-y-3">
+                        <div class="institution-badge inline-block px-4 py-2 rounded-lg text-sm font-medium">
+                            BITS Design School Mumbai
+                        </div>
+                        <div class="institution-badge inline-block px-4 py-2 rounded-lg text-sm font-medium ml-3">
+                            Reserve Bank Innovation Hub
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mt-4">
+                        This project is being developed at BITS Design School Mumbai with support from RBI Innovation Hub, combining academic research with practical innovation to serve India's MSME ecosystem.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 hero-bg">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-3xl lg:text-5xl text-primary mb-6" style="color: var(--primary);">
+                    TEAM
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Meet the team behind Udyam Saathi
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="team-card p-8 rounded-2xl text-center">
+                    <div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: var(--primary);">
+                        <span class="text-2xl font-heading text-white">AK</span>
+                    </div>
+                    <h3 class="font-heading text-xl mb-2 text-primary" style="color: var(--primary);">Aayush Khare</h3>
+                    <p class="text-secondary mb-4" style="color: var(--secondary);">BITS Design School Mumbai</p>
+                    <p class="text-gray-600 text-sm">
+                        Research and development lead focused on voice interface design and AI-powered scheme matching algorithms.
+                    </p>
+                </div>
+                
+                <div class="team-card p-8 rounded-2xl text-center">
+                    <div class="w-24 h-24 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: var(--secondary);">
+                        <span class="text-2xl font-heading text-white">KK</span>
+                    </div>
+                    <h3 class="font-heading text-xl mb-2 text-primary" style="color: var(--primary);">Koutilya Karamala</h3>
+                    <p class="text-secondary mb-4" style="color: var(--secondary);">BITS Design School Mumbai</p>
+                    <p class="text-gray-600 text-sm">
+                        Technical architecture and system design specialist working on conversation management and multilingual support.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-heading text-3xl text-primary mb-6" style="color: var(--primary);">
+                Interested in Learning More?
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Get in touch to discuss the project, provide feedback, or explore collaboration opportunities.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-8">
+                <!-- Aayush -->
+                <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group cursor-text">
+                    <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center" style="background-color: var(--primary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-heading text-lg text-primary" style="color: var(--primary);">Aayush Khare</div>
+                        <div class="text-gray-600 select-all">aayush.khare2024@bitsdesign.edu.in</div>
+                    </div>
+                </div>
+                
+                <!-- Koutilya -->
+                <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group cursor-text">
+                    <div class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center" style="background-color: var(--secondary);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-heading text-lg text-primary" style="color: var(--primary);">Koutilya Karamala</div>
+                        <div class="text-gray-600 select-all">koutilya.karamala2024@bitsdesign.edu.in</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12" style="background-color: var(--primary);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="font-heading text-2xl mb-4">Udyam Saathi</div>
+                <p class="text-blue-200">© 2026 Udyam Saathi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
