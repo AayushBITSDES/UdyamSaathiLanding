@@ -72,14 +72,16 @@ function initializeProblemChart() {
                     type: 'shadow'
                 },
                 textStyle: {
-                    fontSize: 14
+                    fontSize: 14,
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 }
             },
             legend: {
                 data: ['Total Schemes Available', 'Schemes Actually Accessed'],
                 textStyle: {
                     fontSize: 14,
-                    color: '#2D3748'
+                    color: '#2D3748',
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 },
                 top: 10
             },
@@ -94,7 +96,8 @@ function initializeProblemChart() {
                 data: ['Central Govt', 'State Govt', 'PSU Banks', 'NBFCs', 'NGOs'],
                 axisLabel: {
                     fontSize: 12,
-                    color: '#6B7280'
+                    color: '#6B7280',
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 },
                 axisLine: {
                     lineStyle: {
@@ -107,11 +110,13 @@ function initializeProblemChart() {
                 name: 'Number of Schemes',
                 nameTextStyle: {
                     color: '#6B7280',
-                    fontSize: 12
+                    fontSize: 12,
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 },
                 axisLabel: {
                     fontSize: 12,
-                    color: '#6B7280'
+                    color: '#6B7280',
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 },
                 axisLine: {
                     lineStyle: {
@@ -185,16 +190,18 @@ function initializeCreditGapChart() {
                 },
                 formatter: function(params) {
                     if (params[0].name === 'Credit Gap') {
-                        return '<strong style="color: #E63946;">The Gap</strong><br/>' +
-                               'This represents 50 million businesses<br/>' +
-                               'like yours waiting for capital.<br/>' +
-                               '<strong>₹30 Lakh Crore</strong>';
+                        return '<strong style="color: #E63946; font-family: \'General Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;">The Gap</strong><br/>' +
+                               '<span style="font-family: \'General Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;">This represents 50 million businesses<br/>' +
+                               'like yours waiting for capital.</span><br/>' +
+                               '<strong style="font-family: \'General Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;">₹30 Lakh Crore</strong>';
                     }
-                    return params[0].marker + ' ' + params[0].name + '<br/>' +
-                           '<strong>₹' + params[0].value + ' Lakh Crore</strong>';
+                    return '<span style="font-family: \'General Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;">' +
+                           params[0].marker + ' ' + params[0].name + '<br/>' +
+                           '<strong>₹' + params[0].value + ' Lakh Crore</strong></span>';
                 },
                 textStyle: {
-                    fontSize: 14
+                    fontSize: 14,
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 }
             },
             grid: {
@@ -212,12 +219,14 @@ function initializeCreditGapChart() {
                 nameTextStyle: {
                     fontSize: 13,
                     color: '#6B7280',
-                    fontWeight: 500
+                    fontWeight: 500,
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 },
                 axisLabel: {
                     fontSize: 12,
                     color: '#6B7280',
-                    formatter: '₹{value}'
+                    formatter: '₹{value}',
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 },
                 axisLine: {
                     lineStyle: {
@@ -237,7 +246,8 @@ function initializeCreditGapChart() {
                 axisLabel: {
                     fontSize: 13,
                     color: '#2D3748',
-                    fontWeight: 500
+                    fontWeight: 500,
+                    fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                 },
                 axisLine: {
                     lineStyle: {
@@ -281,7 +291,8 @@ function initializeCreditGapChart() {
                         formatter: '₹{c} L Cr',
                         fontSize: 14,
                         fontWeight: 600,
-                        color: '#2D3748'
+                        color: '#2D3748',
+                        fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                     }
                 }
             ],
