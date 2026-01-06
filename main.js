@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeHeroEffects();
     initializeProblemChart();
+    initializeCreditGapChart();
+    initializeAwarenessWaffle();
+    initializeDigitalImpact();
     initializeScrollAnimations();
 });
 
@@ -168,7 +171,340 @@ function initializeProblemChart() {
     }
 }
 
+// Credit Gap Visualization (₹30 Lakh Crore Gap)
+function initializeCreditGapChart() {
+    const chartContainer = document.getElementById('credit-gap-chart');
+    if (chartContainer && typeof echarts !== 'undefined') {
+        const chart = echarts.init(chartContainer);
 
+        const option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                },
+                formatter: function(params) {
+                    if (params[0].name === 'Credit Gap') {
+                        return '<strong style="color: #E63946;">The Gap</strong><br/>' +
+                               'This represents 50 million businesses<br/>' +
+                               'like yours waiting for capital.<br/>' +
+                               '<strong>₹30 Lakh Crore</strong>';
+                    }
+                    return params[0].marker + ' ' + params[0].name + '<br/>' +
+                           '<strong>₹' + params[0].value + ' Lakh Crore</strong>';
+                },
+                textStyle: {
+                    fontSize: 14
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '5%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                name: 'Amount (₹ Lakh Crore)',
+                nameLocation: 'middle',
+                nameGap: 30,
+                nameTextStyle: {
+                    fontSize: 13,
+                    color: '#6B7280',
+                    fontWeight: 500
+                },
+                axisLabel: {
+                    fontSize: 12,
+                    color: '#6B7280',
+                    formatter: '₹{value}'
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#E5E7EB'
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#F3F4F6'
+                    }
+                },
+                max: 64
+            },
+            yAxis: {
+                type: 'category',
+                data: ['Current Access', 'Credit Gap', 'Total Need'],
+                axisLabel: {
+                    fontSize: 13,
+                    color: '#2D3748',
+                    fontWeight: 500
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#E5E7EB'
+                    }
+                },
+                axisTick: {
+                    show: false
+                }
+            },
+            series: [
+                {
+                    name: 'MSME Credit',
+                    type: 'bar',
+                    data: [
+                        {
+                            value: 34,
+                            itemStyle: {
+                                color: '#7A9B76' // Secondary green - Current Access
+                            }
+                        },
+                        {
+                            value: 30,
+                            itemStyle: {
+                                color: '#E63946', // Red - The Gap (with pulse animation)
+                                shadowBlur: 10,
+                                shadowColor: 'rgba(230, 57, 70, 0.5)'
+                            }
+                        },
+                        {
+                            value: 64,
+                            itemStyle: {
+                                color: '#0F4C5C' // Primary teal - Total Need
+                            }
+                        }
+                    ],
+                    barWidth: '50%',
+                    label: {
+                        show: true,
+                        position: 'right',
+                        formatter: '₹{c} L Cr',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: '#2D3748'
+                    }
+                }
+            ],
+            animationDuration: 1500,
+            animationEasing: 'cubicOut',
+            animationDelay: function (idx) {
+                return idx * 300;
+            }
+        };
+
+        chart.setOption(option);
+
+        // Make chart responsive
+        window.addEventListener('resize', function() {
+            chart.resize();
+        });
+
+        // Animate chart on scroll into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    chart.setOption(option, true);
+
+                    // Add pulsing animation to the gap bar after initial render
+                    setTimeout(() => {
+                        pulseGapBar(chart);
+                    }, 1500);
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+
+        observer.observe(chartContainer);
+    }
+}
+
+// Pulsing animation for the credit gap bar
+function pulseGapBar(chart) {
+    let isPulsing = true;
+
+    setInterval(() => {
+        if (isPulsing) {
+            chart.setOption({
+                series: [{
+                    data: [
+                        {
+                            value: 34,
+                            itemStyle: { color: '#7A9B76' }
+                        },
+                        {
+                            value: 30,
+                            itemStyle: {
+                                color: '#E63946',
+                                shadowBlur: 20,
+                                shadowColor: 'rgba(230, 57, 70, 0.8)'
+                            }
+                        },
+                        {
+                            value: 64,
+                            itemStyle: { color: '#0F4C5C' }
+                        }
+                    ]
+                }]
+            });
+        } else {
+            chart.setOption({
+                series: [{
+                    data: [
+                        {
+                            value: 34,
+                            itemStyle: { color: '#7A9B76' }
+                        },
+                        {
+                            value: 30,
+                            itemStyle: {
+                                color: '#E63946',
+                                shadowBlur: 10,
+                                shadowColor: 'rgba(230, 57, 70, 0.5)'
+                            }
+                        },
+                        {
+                            value: 64,
+                            itemStyle: { color: '#0F4C5C' }
+                        }
+                    ]
+                }]
+            });
+        }
+        isPulsing = !isPulsing;
+    }, 1500);
+}
+
+// Awareness Void Waffle Chart (90% unaware vs 10% aware)
+function initializeAwarenessWaffle() {
+    const waffleContainer = document.getElementById('awareness-waffle');
+    if (waffleContainer) {
+        // Create 10x10 grid (100 squares)
+        const gridSize = 10;
+        const totalSquares = 100;
+        const awareCount = 10; // 10% aware
+        const unawareCount = 90; // 90% unaware
+
+        // Create grid container
+        const grid = document.createElement('div');
+        grid.className = 'grid grid-cols-10 gap-2 max-w-lg mx-auto';
+        grid.style.cssText = 'grid-template-columns: repeat(10, minmax(0, 1fr));';
+
+        // Factory icon SVG template
+        const factoryIcon = (fillColor, opacity = 1) => `
+            <svg viewBox="0 0 24 24" fill="${fillColor}" opacity="${opacity}" class="w-6 h-6 md:w-8 md:h-8">
+                <path d="M10 2L4 6v14h16V6l-6-4H10zm-4 6h2v2H6V8zm0 4h2v2H6v-2zm0 4h2v2H6v-2zm4-8h4v2h-4V8zm0 4h4v2h-4v-2zm0 4h4v2h-4v-2zm6-8h2v2h-2V8zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"/>
+            </svg>
+        `;
+
+        // Generate all 100 squares
+        for (let i = 0; i < totalSquares; i++) {
+            const square = document.createElement('div');
+            square.className = 'waffle-square flex items-center justify-center p-1 rounded transition-all duration-300';
+            square.style.opacity = '0';
+
+            // First 10 squares are "aware" (green), rest are "unaware" (grey)
+            if (i < awareCount) {
+                square.style.backgroundColor = '#7A9B76'; // Secondary green
+                square.innerHTML = factoryIcon('#FFFFFF', 0.9);
+                square.setAttribute('aria-label', 'Aware MSME');
+            } else {
+                square.style.backgroundColor = '#E5E7EB'; // Light grey
+                square.innerHTML = factoryIcon('#9CA3AF', 0.6);
+                square.setAttribute('aria-label', 'Unaware MSME');
+            }
+
+            grid.appendChild(square);
+        }
+
+        waffleContainer.appendChild(grid);
+
+        // Animate squares on scroll into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const squares = grid.querySelectorAll('.waffle-square');
+
+                    // Staggered fade-in animation
+                    anime({
+                        targets: squares,
+                        opacity: [0, 1],
+                        scale: [0.5, 1],
+                        duration: 800,
+                        easing: 'easeOutElastic(1, .8)',
+                        delay: anime.stagger(15, {start: 300})
+                    });
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        observer.observe(waffleContainer);
+    }
+}
+
+// Digital Impact Visualization (Progress Bars)
+function initializeDigitalImpact() {
+    const impactItems = document.querySelectorAll('.digital-impact-item');
+
+    if (impactItems.length > 0) {
+        // Animate progress bars on scroll into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const items = Array.from(impactItems);
+
+                    items.forEach((item, index) => {
+                        const percentage = parseInt(item.getAttribute('data-percentage'));
+                        const bar = item.querySelector('.impact-bar');
+                        const numberDisplay = item.querySelector('.impact-number');
+
+                        // Delay each bar slightly for staggered effect
+                        setTimeout(() => {
+                            // Animate the progress bar width
+                            bar.style.width = percentage + '%';
+
+                            // Animate the number counting up
+                            animateNumber(numberDisplay, 0, percentage, 1200);
+                        }, index * 200);
+                    });
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+
+        // Observe the first impact item (will trigger animation for all)
+        if (impactItems[0]) {
+            observer.observe(impactItems[0].parentElement);
+        }
+    }
+}
+
+// Helper function to animate numbers counting up
+function animateNumber(element, start, end, duration) {
+    const startTime = performance.now();
+
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing function (ease-out cubic)
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+        const current = Math.floor(start + (end - start) * easeProgress);
+        element.textContent = current + '%';
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            element.textContent = end + '%';
+        }
+    }
+
+    requestAnimationFrame(update);
+}
 
 // Scroll animations
 function initializeScrollAnimations() {
