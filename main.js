@@ -189,7 +189,7 @@ function initializeCreditGapChart() {
                     type: 'shadow'
                 },
                 formatter: function(params) {
-                    if (params[0].name === 'Credit Gap') {
+                    if (params[0].name === '-Credit Gap') {
                         return '<strong style="color: #E63946; font-family: \'General Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;">The Gap</strong><br/>' +
                                '<span style="font-family: \'General Sans\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;">This represents 50 million businesses<br/>' +
                                'like yours waiting for capital.</span><br/>' +
